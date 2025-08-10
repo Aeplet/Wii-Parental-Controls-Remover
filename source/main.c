@@ -71,12 +71,6 @@ int main(int argc, char ** argv) {
    printf("Wii Parental Controls Remover %s\nCreated by Aep\n", VERSION);
    printf("Press HOME (or START on GameCube Controller) to exit.\n\n");
 
-   if (SYSCONF_Init() != 0) {
-      printf("\nFailed to initialize SYSCONF! Is the file on the NAND?");
-      sleep(5);
-      return_to_loader();
-   }
-
    bool parental_controls_enabled = parental_enabled();
    printf("Parental Controls Enabled: %s\n", parental_controls_enabled ? "Yes" : "No");
 
@@ -101,7 +95,6 @@ int main(int argc, char ** argv) {
          printf("Disabling parental controls...\n");
          parental_controls_enabled = false;
          set_parental(0x00); // 0x00: off, 0x80: on
-         printf("Successfully disabled parental controls!\n");
       }
 
       // We return to the launcher application via exit
